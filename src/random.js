@@ -32,7 +32,7 @@ class Random {
 
   static #validatePositiveRange(startInclusive, endExclusive) {
     if (startInclusive < 0 || endExclusive < 0) {
-      throw new IllegalArgumentException(
+      throw new Error(
         `startInclusive: ${startInclusive}, endExclusive: ${endExclusive}는 음수일 수 없습니다.`,
       );
     }
