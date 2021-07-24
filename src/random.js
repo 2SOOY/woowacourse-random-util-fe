@@ -31,9 +31,9 @@ class Random {
   }
 
   static #validatePositiveRange(startInclusive, endExclusive) {
-    if (startInclusive < 0 || endExclusive < 0) {
+    if (startInclusive <= 0 || endExclusive <= 0) {
       throw new Error(
-        `startInclusive: ${startInclusive}, endExclusive: ${endExclusive}는 음수일 수 없습니다.`,
+        `startInclusive: ${startInclusive}, endExclusive: ${endExclusive}는 양수이어야 합니다.`,
       );
     }
   }
