@@ -67,6 +67,18 @@ class Random {
   static shuffle(array) {
     return array.sort(() => Math.random() - 0.5);
   }
+
+  static pick(array) {
+    Random.#validateEmptyArray(array);
+
+    return array[Random.randomInt(0, array.length)];
+  }
+
+  static #validateEmptyArray(array) {
+    if (array.length === 0) {
+      throw new Error(`입력한 배열은 최소 1개 이상의 원소를 가져야 합니다.`);
+    }
+  }
 }
 
 export default Random;
