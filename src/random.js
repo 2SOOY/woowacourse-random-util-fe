@@ -1,6 +1,6 @@
 class Random {
   static randomInt(startInclusive, endExclusive) {
-    Random.#validateRange(startInclusive, endExclusive);
+    Random.validateRange(startInclusive, endExclusive);
 
     startInclusive = Math.ceil(startInclusive);
 
@@ -10,7 +10,7 @@ class Random {
     );
   }
 
-  static #validateRange(startInclusive, endExclusive) {
+  static validateRange(startInclusive, endExclusive) {
     if (startInclusive >= endExclusive) {
       throw new Error(
         `startInclusive: ${startInclusive}가 endExclusive: ${endExclusive}보다 같거나 클 수 없습니다.`,
@@ -19,8 +19,8 @@ class Random {
   }
 
   static randomPositive(startInclusive, endExclusive) {
-    Random.#validateRange(startInclusive, endExclusive);
-    Random.#validatePositiveRange(startInclusive, endExclusive);
+    Random.validateRange(startInclusive, endExclusive);
+    Random.validatePositiveRange(startInclusive, endExclusive);
 
     startInclusive = Math.ceil(startInclusive);
 
@@ -30,7 +30,7 @@ class Random {
     );
   }
 
-  static #validatePositiveRange(startInclusive, endExclusive) {
+  static validatePositiveRange(startInclusive, endExclusive) {
     if (startInclusive <= 0 || endExclusive <= 0) {
       throw new Error(
         `startInclusive: ${startInclusive}, endExclusive: ${endExclusive}는 양수이어야 합니다.`,
@@ -39,7 +39,7 @@ class Random {
   }
 
   static notDuplicatedRandomInts(startInclusive, endExclusive, count) {
-    Random.#validateIntsRange(startInclusive, endExclusive, count);
+    Random.validateIntsRange(startInclusive, endExclusive, count);
 
     const randomInts = [];
 
@@ -50,7 +50,7 @@ class Random {
     return Random.shuffle(randomInts).slice(0, count);
   }
 
-  static #validateIntsRange(startInclusive, endExclusive, count) {
+  static validateIntsRange(startInclusive, endExclusive, count) {
     if (count < 0) {
       throw new Error(`count: ${count}는 보다 작을 수 없습니다.`);
     }
@@ -69,12 +69,12 @@ class Random {
   }
 
   static pick(array) {
-    Random.#validateEmptyArray(array);
+    Random.validateEmptyArray(array);
 
     return array[Random.randomInt(0, array.length)];
   }
 
-  static #validateEmptyArray(array) {
+  static validateEmptyArray(array) {
     if (array.length === 0) {
       throw new Error(`입력한 배열은 최소 1개 이상의 원소를 가져야 합니다.`);
     }
