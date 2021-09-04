@@ -1,83 +1,101 @@
 class Random {
-  static randomInt(startInclusive, endExclusive) {
-    Random.validateRange(startInclusive, endExclusive);
+  static pickOneInRange(startInclusive, endInclusive) {
+    Random.#validateRange(startInclusive, endInclusive);
 
     startInclusive = Math.ceil(startInclusive);
 
     return (
-      Math.floor(Math.random() * (endExclusive - startInclusive)) +
+      Math.floor(Math.random() * (endInclusive + 1 - startInclusive)) +
       startInclusive
     );
   }
 
-  static validateRange(startInclusive, endExclusive) {
-    if (startInclusive >= endExclusive) {
+  static #isNumber(value) {
+    return typeof value === "number";
+  }
+
+  static #validateRange(startInclusive, endInclusive) {
+    if (!Random.#isNumber(startInclusive) || !Random.#isNumber(endInclusive)) {
+      throw new Error(`인자는 숫자만 가능합니다.`);
+    }
+
+    if (startInclusive < Number.MIN_SAFE_INTEGER) {
       throw new Error(
-        `startInclusive: ${startInclusive}가 endExclusive: ${endExclusive}보다 같거나 클 수 없습니다.`,
+        `최소값 정수 범위를 미달하였습니다. 더 높은 최소 정수값을 입력해주세요`,
+      );
+    }
+
+    if (endInclusive > Number.MAX_SAFE_INTEGER) {
+      throw new Error(
+        `최대값 정수 범위를 초과하였습니다. 더 낮은 최대 정수값 입력해주세요`,
+      );
+    }
+
+    if (startInclusive > endInclusive) {
+      throw new Error(
+        `최소값 ${startInclusive}가 최대값 ${endInclusive}보다 클 수 없습니다.`,
       );
     }
   }
 
-  static randomPositive(startInclusive, endExclusive) {
-    Random.validateRange(startInclusive, endExclusive);
-    Random.validatePositiveRange(startInclusive, endExclusive);
+  static pickOneInArray(array) {
+    Random.#validateEmptyArray(array);
 
-    startInclusive = Math.ceil(startInclusive);
-
-    return (
-      Math.floor(Math.random() * (endExclusive - startInclusive)) +
-      startInclusive
-    );
+    return array[Random.pickOneInRange(0, array.length - 1)];
   }
 
-  static validatePositiveRange(startInclusive, endExclusive) {
-    if (startInclusive <= 0 || endExclusive <= 0) {
-      throw new Error(
-        `startInclusive: ${startInclusive}, endExclusive: ${endExclusive}는 양수이어야 합니다.`,
-      );
+  static #validateEmptyArray(array) {
+    if (!Array.isArray(array)) {
+      throw new Error(`인자는 배열만 가능합니다.`);
+    }
+
+    if (!array.every((v) => Random.#isNumber(v))) {
+      throw new Error(`배열의 원소는 숫자만 가능합니다.`);
+    }
+
+    if (array.length === 0) {
+      throw new Error(`입력한 배열은 최소 1개 이상의 원소를 가져야 합니다.`);
     }
   }
 
-  static notDuplicatedRandomInts(startInclusive, endExclusive, count) {
-    Random.validateIntsRange(startInclusive, endExclusive, count);
+  static pickSeveralInRange(startInclusive, endInclusive, count) {
+    Random.#validateIntsRange(startInclusive, endInclusive, count);
 
-    const randomInts = [];
+    const result = [];
 
-    for (let i = startInclusive; i < endExclusive; i++) {
-      randomInts.push(i);
+    for (let i = startInclusive; i <= endInclusive; i++) {
+      result.push(i);
     }
 
-    return Random.shuffle(randomInts).slice(0, count);
+    return Random.shuffle(result).slice(0, count);
   }
 
-  static validateIntsRange(startInclusive, endExclusive, count) {
+  static #validateIntsRange(startInclusive, endInclusive, count) {
+    if (
+      !Random.#isNumber(startInclusive) ||
+      !Random.#isNumber(endInclusive) ||
+      !Random.#isNumber(count)
+    ) {
+      throw new Error(`인자 값은 숫자만 가능합니다.`);
+    }
+
     if (count < 0) {
-      throw new Error(`count: ${count}는 보다 작을 수 없습니다.`);
+      throw new Error(`count: ${count}는 0보다 작을 수 없습니다.`);
     }
 
-    if (endExclusive - startInclusive < count) {
+    if (endInclusive - startInclusive + 1 < count) {
       throw new Error(
-        `count: ${count}가 (endExclusive - startInclusive): ${
-          endExclusive - startInclusive
+        `count: ${count}가 (endInclusive - startInclusive): ${
+          endInclusive - startInclusive
         } 보다 같거나 작아야합니다.`,
       );
     }
   }
 
   static shuffle(array) {
+    Random.#validateEmptyArray(array);
+
     return array.sort(() => Math.random() - 0.5);
-  }
-
-  static pick(array) {
-    Random.validateEmptyArray(array);
-
-    return array[Random.randomInt(0, array.length)];
-  }
-
-  static validateEmptyArray(array) {
-    if (array.length === 0) {
-      throw new Error(`입력한 배열은 최소 1개 이상의 원소를 가져야 합니다.`);
-    }
   }
 }
 
