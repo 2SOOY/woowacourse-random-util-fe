@@ -43,34 +43,34 @@ console.log(WoowaUtil.Random.pickOneInArray([1, 2, 3]));
 
 ### Random class
 
-1. `Random.pickOneInRange(start, end)`
+1. `Random.pickNumberInRange(start, end)`
 
    - `start <= n <= end`를 만족하는 `1개`의 `n`을 반환
    - 예시
      ```js
-     Random.pickOneInRange(1, 10); // 1
-     Random.pickOneInRange(1, 10); // 10
-     Random.pickOneInRange(1, 10); // 4
-     Random.pickOneInRange(1, 10); // 5
+     Random.pickNumberInRange(1, 10); // 1
+     Random.pickNumberInRange(1, 10); // 10
+     Random.pickNumberInRange(1, 10); // 4
+     Random.pickNumberInRange(1, 10); // 5
      ```
 
-2. `Random.pickOneInArray(array)`
+2. `Random.pickNumberInList(array)`
 
    - 입력된 배열의 요소 중 무작위로 `1개`의 `요소`를 반환
    - 예시
      ```js
-     Random.pickOneInArray([1, 3, 10]); // 1
-     Random.pickOneInArray([1, 3, 10]); // 10
-     Random.pickOneInArray([1, 3, 10]); // 3
+     Random.pickNumberInList([1, 3, 10]); // 1
+     Random.pickNumberInList([1, 3, 10]); // 10
+     Random.pickNumberInList([1, 3, 10]); // 3
      ```
 
-3. `Random.pickSeveralInRange(start, end, count)`
+3. `Random.pickUniqueNumbersInRange(start, end, count)`
 
    - `start <= n <= end`를 만족하는 `count`개의 `n`을 배열 형태로 반환
    - 예시
      ```js
-     Random.pickSeveralInRange(1, 10, 2); // [1, 2]
-     Random.pickSeveralInRange(1, 10, 5); // [1, 10, 7, 8, 5]
+     Random.pickUniqueNumbersInRange(1, 10, 2); // [1, 2]
+     Random.pickUniqueNumbersInRange(1, 10, 5); // [1, 10, 7, 8, 5]
      ```
 
 4. `Random.shuffle(array)`

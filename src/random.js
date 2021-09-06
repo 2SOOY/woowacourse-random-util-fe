@@ -1,7 +1,7 @@
 class Random {
   constructor() {}
 
-  static pickOneInRange(startInclusive, endInclusive) {
+  static pickNumberInRange(startInclusive, endInclusive) {
     Random.#validateRange(startInclusive, endInclusive);
 
     startInclusive = Math.ceil(startInclusive);
@@ -40,10 +40,10 @@ class Random {
     }
   }
 
-  static pickOneInArray(array) {
+  static pickNumberInList(array) {
     Random.#validateEmptyArray(array);
 
-    return array[Random.pickOneInRange(0, array.length - 1)];
+    return array[Random.pickNumberInRange(0, array.length - 1)];
   }
 
   static #validateEmptyArray(array) {
@@ -60,7 +60,7 @@ class Random {
     }
   }
 
-  static pickSeveralInRange(startInclusive, endInclusive, count) {
+  static pickUniqueNumbersInRange(startInclusive, endInclusive, count) {
     Random.#validateIntsRange(startInclusive, endInclusive, count);
 
     const result = [];
